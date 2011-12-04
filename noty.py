@@ -20,7 +20,9 @@ if __name__ == '__main__':
         for e in pygame.event.get():
             if e.type == pygame.QUIT:
                 keepGoing = False
-
+            if e.type == pygame.KEYDOWN:
+                if e.key == pygame.K_ESCAPE:
+                    keepGoing = False
 
         screen.blit( text, [50,50] )
 
