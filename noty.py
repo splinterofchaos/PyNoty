@@ -126,6 +126,9 @@ if __name__ == '__main__':
     # becomes stuck to the mouse. 
     stuckNode = None
 
+    # Where on the TextInput got stuck. (Offset from mouse to TextInput.)
+    stickOffset = 0, 0
+
     while not window.close:
         for e in pygame.event.get():
             window.process_events( e )
@@ -135,13 +138,22 @@ if __name__ == '__main__':
                 # mp = Mouse Position
                 mp = pygame.mouse.get_pos()
                 stuckNode = root.find_node_from_point( mp )
+
+                if stuckNode:
+                    # sp = Stuck Position
+                    sp = stuckNode.entry.pos
+
+                    stickOffset = [ sp[0] - mp[0], sp[1] - mp[1] ]
             if e.type == pygame.MOUSEBUTTONUP   and e.button == 1:
                 stuckNode = None
 
         if stuckNode:
             # Mouse button is assumed to be down. If it went up, the node
             # should become unstuck.
-            stuckNode.entry.pos = pygame.mouse.get_pos()
+            mp = pygame.mouse.get_pos()
+            so = stickOffset
+
+            stuckNode.entry.pos = [ mp[0] + so[0], mp[1] + so[1] ]
 
         if curNode.entry.flush:
             curNode.entry.flush = False
