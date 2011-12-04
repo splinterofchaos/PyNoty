@@ -42,10 +42,14 @@ class Renderable:
         self.obj = obj
         self.pos = pos
 
+class TextInput( Renderable ):
+    def __init__( self, text, pos, color=WHITE ):
+        Renderable.__init__( self, text, pos, color )
+
 if __name__ == '__main__':
     window = Window( 500, 500 )
 
-    hello = Renderable( "Hello World", [50,50] )
+    hello = TextInput( "Hello World", [50,50] )
 
     while not window.close:
         for e in pygame.event.get():
