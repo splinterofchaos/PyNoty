@@ -3,12 +3,6 @@ import sys, pygame
 
 pygame.init()
 
-width = 500
-height = width
-size = width, height
-BLACK = 0, 0, 0
-WHITE = 255, 255, 255
-
 class Window:
     def __init__(self, x, y ):
         self.dimensions = x, y
@@ -33,6 +27,9 @@ class Window:
 
 
 class Renderable:
+    BLACK = 0, 0, 0
+    WHITE = 255, 255, 255
+
     font = pygame.font.Font( None, 20 )
 
     def __init__( self, obj, pos, color=WHITE ):
@@ -44,7 +41,7 @@ class Renderable:
         self.color = color
 
 class TextInput( Renderable ):
-    def __init__( self, text, pos, color=WHITE ):
+    def __init__( self, text, pos, color=Renderable.WHITE ):
         self.text = text
 
         Renderable.__init__( self, text, pos, color )
