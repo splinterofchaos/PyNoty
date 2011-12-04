@@ -41,10 +41,21 @@ class Renderable:
 
         self.obj = obj
         self.pos = pos
+        self.color = color
 
 class TextInput( Renderable ):
     def __init__( self, text, pos, color=WHITE ):
+        self.text = text
+
         Renderable.__init__( self, text, pos, color )
+
+    def update( self ):
+        self.obj = Renderable.font.render( self.text, True, self.color )
+
+    def capture_input( self, event ):
+        if event.type == pygame.KEYDOWN:
+            self.text += chr( event.key )
+            self.update()
 
 if __name__ == '__main__':
     window = Window( 500, 500 )
@@ -54,6 +65,7 @@ if __name__ == '__main__':
     while not window.close:
         for e in pygame.event.get():
             window.process_events( e )
+            hello.capture_input( e )
 
         window.paint( hello )
         window.display()
