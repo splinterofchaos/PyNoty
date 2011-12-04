@@ -54,7 +54,16 @@ class TextInput( Renderable ):
 
     def capture_input( self, event ):
         if event.type == pygame.KEYDOWN:
-            self.text += chr( event.key )
+            try:
+                if event.key == pygame.K_BACKSPACE:
+                    self.text = self.text[:-1]
+                elif event.key in ( pygame.K_RETURN, pygame.K_TAB ):
+                    pass
+                else:
+                    self.text += chr( event.key )
+            except ValueError:
+                pass
+
             self.update()
 
 if __name__ == '__main__':
