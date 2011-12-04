@@ -14,8 +14,14 @@ class Window:
         self.dimensions = x, y
         self.screen = pygame.display.set_mode( self.dimensions )
 
-
         self.clearColor = 0, 0, 0
+
+        self.close = False
+
+    def process_events( self, event ):
+        if event.type == pygame.QUIT or \
+           ( event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE ):
+            self.close = True
 
     def paint( self, renderable ):
         self.screen.blit( renderable.obj, renderable.pos )
@@ -41,14 +47,9 @@ if __name__ == '__main__':
 
     hello = Renderable( "Hello World", [50,50] )
 
-    keepGoing = True
-    while keepGoing:
+    while not window.close:
         for e in pygame.event.get():
-            if e.type == pygame.QUIT:
-                keepGoing = False
-            if e.type == pygame.KEYDOWN:
-                if e.key == pygame.K_ESCAPE:
-                    keepGoing = False
+            window.process_events( e )
 
         window.paint( hello )
         window.display()
