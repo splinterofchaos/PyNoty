@@ -68,22 +68,26 @@ class TextInput( Renderable ):
 
 class Tree:
     SPACING = 20
+    TAB     = 10
 
     def __init__( self, parent=None ):
-        self.parent = parent
+        self.parent   = parent
         self.children = []
+        self.indent   = 0
 
         pos = 50, 50
         if parent:
             pos = parent.entry.pos
             pos = [ pos[0], pos[1] + 20 ]
 
+            self.indent = parent.indent + 1
+
         self.entry = TextInput( "", pos )
 
     def reposition( self, y = 50 ):
         # Assumes self is correctly placed. 
         # But its children may be overlapping.
-        self.entry.pos = 50, y
+        self.entry.pos = 50 + Tree.TAB*self.indent, y
         for c in self.children:
             y += Tree.SPACING
             y = c.reposition( y )
