@@ -7,6 +7,11 @@ size = width, height
 BLACK = 0, 0, 0
 WHITE = 255, 255, 255
 
+class Renderable:
+    def __init__( self, obj, pos ):
+        self.obj = obj
+        self.pos = pos
+
 class Window:
     def __init__(self, x, y ):
         pygame.init()
@@ -18,8 +23,8 @@ class Window:
 
         self.clearColor = 0, 0, 0
 
-    def paint( self, obj, pos ):
-        self.screen.blit( obj, pos )
+    def paint( self, renderable ):
+        self.screen.blit( renderable.obj, renderable.pos )
 
     def display( self ):
         pygame.display.flip()
@@ -29,7 +34,8 @@ class Window:
 if __name__ == '__main__':
     window = Window( 500, 500 )
 
-    text = window.font.render( "Hello World", True, WHITE )
+    textTmp = window.font.render( "Hello World", True, WHITE )
+    hello = Renderable( textTmp, [50,50] )
 
     keepGoing = True
     while keepGoing:
@@ -40,7 +46,7 @@ if __name__ == '__main__':
                 if e.key == pygame.K_ESCAPE:
                     keepGoing = False
 
-        window.paint( text, [50,50] )
+        window.paint( hello )
         window.display()
 
     pygame.quit()
