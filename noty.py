@@ -67,6 +67,8 @@ class TextInput( Renderable ):
             self.update()
 
 class Tree:
+    SPACING = 20
+
     def __init__( self, parent=None ):
         self.parent = parent
         self.children = []
@@ -77,6 +79,16 @@ class Tree:
             pos = [ pos[0], pos[1] + 20 ]
 
         self.entry = TextInput( "", pos )
+
+    def reposition( self, y = 50 ):
+        # Assumes self is correctly placed. 
+        # But its children may be overlapping.
+        self.entry.pos = 50, y
+        for c in self.children:
+            y += Tree.SPACING
+            y = c.reposition( y )
+
+        return y
 
     def paint_onto( self, window ):
         window.paint( self.entry )
@@ -102,6 +114,8 @@ if __name__ == '__main__':
 
             curNode.children.append( Tree(curNode) )
             curNode = curNode.children[ -1 ]
+
+            root.reposition()
                 
         root.paint_onto( window )
 
