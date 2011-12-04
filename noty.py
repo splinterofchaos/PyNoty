@@ -43,6 +43,7 @@ class Renderable:
 class TextInput( Renderable ):
     def __init__( self, text, pos, color=Renderable.WHITE ):
         self.text = text
+        self.flush = False
 
         Renderable.__init__( self, text, pos, color )
 
@@ -54,7 +55,9 @@ class TextInput( Renderable ):
             try:
                 if event.key == pygame.K_BACKSPACE:
                     self.text = self.text[:-1]
-                elif event.key in ( pygame.K_RETURN, pygame.K_TAB ):
+                elif event.key == pygame.K_RETURN:
+                    self.flush = True
+                elif event.key pygame.K_TAB:
                     pass
                 else:
                     self.text += chr( event.key )
