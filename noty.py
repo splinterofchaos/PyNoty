@@ -112,6 +112,8 @@ class Tree:
                     if ret != None:
                         return ret
 
+        # Point didn't collide with self and there either were no children to
+        # check or they didn't collide either.
         return None
 
 
@@ -120,6 +122,8 @@ if __name__ == '__main__':
 
     root = curNode = Tree()
 
+    # When the mouse button goes down, hovering over a TextInput, that box
+    # becomes stuck to the mouse. 
     stuckNode = None
 
     while not window.close:
