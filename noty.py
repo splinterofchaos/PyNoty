@@ -57,7 +57,7 @@ class TextInput( Renderable ):
                     self.text = self.text[:-1]
                 elif event.key == pygame.K_RETURN:
                     self.flush = True
-                elif event.key pygame.K_TAB:
+                elif event.key == pygame.K_TAB:
                     pass
                 else:
                     self.text += chr( event.key )
@@ -66,17 +66,45 @@ class TextInput( Renderable ):
 
             self.update()
 
+class Tree:
+    def __init__( self, parent=None ):
+        self.parent = parent
+        self.children = []
+
+        pos = 50, 50
+        if parent:
+            pos = parent.entry.pos
+            pos = [ pos[0], pos[1] + 20 ]
+
+        self.entry = TextInput( "", pos )
+
+    def paint_onto( self, window ):
+        window.paint( self.entry )
+        for c in self.children:
+            c.paint_onto( window )
+
+
 if __name__ == '__main__':
     window = Window( 500, 500 )
 
-    hello = TextInput( "Hello World", [50,50] )
+    root = curNode = Tree()
 
     while not window.close:
         for e in pygame.event.get():
             window.process_events( e )
-            hello.capture_input( e )
+            curNode.entry.capture_input( e )
 
-        window.paint( hello )
+        if curNode.entry.flush:
+            curNode.entry.flush = False
+
+            if curNode.parent:
+                curNode = curNode.parent
+
+            curNode.children.append( Tree(curNode) )
+            curNode = curNode.children[ -1 ]
+                
+        root.paint_onto( window )
+
         window.display()
 
     pygame.quit()
