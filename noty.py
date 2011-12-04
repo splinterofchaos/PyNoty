@@ -99,16 +99,45 @@ class Tree:
         for c in self.children:
             c.paint_onto( window )
 
+    def find_node_from_point( self, point ):
+        bounds = self.entry.obj.get_bounding_rect()
+        bounds.move_ip( self.entry.pos )
+
+        if bounds.collidepoint( point ):
+            return self
+        else:
+            if len( self.children ) > 0:
+                for c in self.children:
+                    ret = c.find_node_from_point( point )
+                    if ret != None:
+                        return ret
+
+        return None
+
 
 if __name__ == '__main__':
     window = Window( 500, 500 )
 
     root = curNode = Tree()
 
+    stuckNode = None
+
     while not window.close:
         for e in pygame.event.get():
             window.process_events( e )
             curNode.entry.capture_input( e )
+
+            if e.type == pygame.MOUSEBUTTONDOWN and e.button == 1:
+                # mp = Mouse Position
+                mp = pygame.mouse.get_pos()
+                stuckNode = root.find_node_from_point( mp )
+            if e.type == pygame.MOUSEBUTTONUP   and e.button == 1:
+                stuckNode = None
+
+        if stuckNode:
+            # Mouse button is assumed to be down. If it went up, the node
+            # should become unstuck.
+            stuckNode.entry.pos = pygame.mouse.get_pos() + stickOffset
 
         if curNode.entry.flush:
             curNode.entry.flush = False
@@ -118,8 +147,6 @@ if __name__ == '__main__':
 
             curNode.children.append( Tree(curNode) )
             curNode = curNode.children[ -1 ]
-
-            root.reposition()
                 
         root.paint_onto( window )
 
