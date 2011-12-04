@@ -137,7 +137,7 @@ if __name__ == '__main__':
         if stuckNode:
             # Mouse button is assumed to be down. If it went up, the node
             # should become unstuck.
-            stuckNode.entry.pos = pygame.mouse.get_pos() + stickOffset
+            stuckNode.entry.pos = pygame.mouse.get_pos()
 
         if curNode.entry.flush:
             curNode.entry.flush = False
