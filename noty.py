@@ -1,5 +1,6 @@
 
 import sys, pygame
+import vector
 
 pygame.init()
 
@@ -37,7 +38,7 @@ class Renderable:
             obj = Renderable.font.render( obj, True, color )
 
         self.obj = obj
-        self.pos = pos
+        self.pos = vector.Vector( pos )
         self.color = color
 
 class TextInput( Renderable ):
@@ -136,14 +137,14 @@ if __name__ == '__main__':
 
             if e.type == pygame.MOUSEBUTTONDOWN and e.button == 1:
                 # mp = Mouse Position
-                mp = pygame.mouse.get_pos()
+                mp = vector.Vector( pygame.mouse.get_pos() )
                 stuckNode = root.find_node_from_point( mp )
 
                 if stuckNode:
                     # sp = Stuck Position
-                    sp = stuckNode.entry.pos
+                    sp = vector.Vector( stuckNode.entry.pos )
 
-                    stickOffset = [ sp[0] - mp[0], sp[1] - mp[1] ]
+                    stickOffset = sp - mp
             if e.type == pygame.MOUSEBUTTONUP   and e.button == 1:
                 stuckNode = None
 
