@@ -41,6 +41,25 @@ class Vector:
             return ret
         except TypeError:
             raise TypeError
+
+    def __sub__( self, other ):
+        try:
+            ret = Vector( [] )
+
+            minRange = min( len(self), len(other) )
+            maxRange = max( len(self), len(other) )
+
+            for i in range( minRange ):
+                ret.data.append( self[i] - other[i] )
+            for i in range( minRange, maxRange ):
+                if i > len( self ):
+                    ret.data.append( -other[i] )
+                else:
+                    ret.data.append( self[i] )
+
+            return ret
+        except TypeError:
+            raise TypeError
                 
 
 if __name__ == '__main__':
@@ -52,3 +71,5 @@ if __name__ == '__main__':
     print 'len(a) =', len( a )
     print 'a[1]   =', a[1]
     print 'a + b  =', a + b
+    print 'a - b  =', a - b
+    print 'b - a  =', b - a
