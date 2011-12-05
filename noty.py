@@ -95,16 +95,34 @@ class Tree:
 
         return y
 
+    def dimensions( self ):
+        return self.entry.obj.get_bounding_rect()
+
+    def bounds( self ):
+        rect = self.dimensions()
+        rect.move_ip( self.entry.pos )
+        return rect
+
     def paint_onto( self, window ):
+        rect = self.dimensions().inflate( 20, 20 )
+        rect.centerx += 10
+        rect.centery += 10
+
+        surf = pygame.Surface( [rect.width, rect.height] )
+        pygame.draw.ellipse( surf, [10,50,100], rect )
+
+        rect.move_ip( self.entry.pos )
+        rect.centery -= 12
+        rect.centerx -= 10
+
+        window.paint( Renderable(surf, [rect.left,rect.top]) )
         window.paint( self.entry )
+
         for c in self.children:
             c.paint_onto( window )
 
     def find_node_from_point( self, point ):
-        bounds = self.entry.obj.get_bounding_rect()
-        bounds.move_ip( self.entry.pos )
-
-        if bounds.collidepoint( point ):
+        if self.bounds().collidepoint( point ):
             return self
         else:
             if len( self.children ) > 0:
@@ -116,7 +134,6 @@ class Tree:
         # Point didn't collide with self and there either were no children to
         # check or they didn't collide either.
         return None
-
 
 if __name__ == '__main__':
     window = Window( 500, 500 )
