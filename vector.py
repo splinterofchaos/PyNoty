@@ -23,4 +23,8 @@ class Vector:
 
 if __name__ == '__main__':
     a = Vector( [1,2] )
-    print a
+    a[0] = 5
+    b = a[1]
+    print 'a      =', a
+    print 'len(a) =', len( a )
+    print 'b[1]   =', b
