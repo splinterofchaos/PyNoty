@@ -84,8 +84,6 @@ class Tree:
             pos = parent.entry.pos
             pos = [ pos[0], pos[1] + 20 ]
 
-            self.indent = parent.indent + 1
-
         self.entry = TextInput( "", pos )
 
     def reposition( self, y = 50 ):
@@ -148,6 +146,8 @@ if __name__ == '__main__':
 
     root = curNode = Tree()
 
+    curNode.selected = True
+
     # When the mouse button goes down, hovering over a TextInput, that box
     # becomes stuck to the mouse. 
     stuckNode = None
@@ -183,12 +183,15 @@ if __name__ == '__main__':
 
         if curNode.entry.flush:
             curNode.entry.flush = False
+            curNode.selected    = False
 
             if curNode.parent:
                 curNode = curNode.parent
 
             curNode.children.append( Tree(curNode) )
             curNode = curNode.children[ -1 ]
+
+            curNode.selected = True
                 
         root.paint_onto( window )
 
