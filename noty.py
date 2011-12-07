@@ -84,7 +84,7 @@ class Tree:
         pos = 50, 50
         if parent:
             pos = parent.entry.pos
-            pos = [ pos[0], pos[1] + 20 ]
+            pos = [ pos[0], pos[1] + 60 ]
 
         self.entry = TextInput( "", pos )
 
