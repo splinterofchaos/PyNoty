@@ -110,14 +110,12 @@ class Tree:
         rect.centerx += 10
         rect.centery += 10
 
-        surf = pygame.Surface( [rect.width, rect.height] )
         pygame.draw.ellipse( window.screen, [10,50,100], rect )
 
         # The position of the ellipse must be up and right of the entry to be
         # centered.
         pos = Vector(self.entry.pos) - [ 12, 10 ]
 
-        window.paint( Renderable(surf, pos) )
         window.paint( self.entry )
 
         for c in self.children:
