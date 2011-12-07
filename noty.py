@@ -71,10 +71,13 @@ class Tree:
     SPACING = 20
     TAB     = 10
 
+    COLOR          = [  10, 50, 100 ]
+    SELECTED_COLOR = [ 100, 50, 100 ]
+
     def __init__( self, parent=None ):
         self.parent   = parent
         self.children = []
-        self.indent   = 0
+        self.selected = False
 
         pos = 50, 50
         if parent:
@@ -112,7 +115,13 @@ class Tree:
 
         # Draw an oval before the text.
         rect = self.bounds()
-        pygame.draw.ellipse( window.screen, [10,50,100], rect )
+        
+        if self.selected:
+            col = Tree.SELECTED_COLOR
+        else:
+            col = Tree.COLOR
+
+        pygame.draw.ellipse( window.screen, col, rect )
 
         # Draw the text over that oval.
         window.paint( self.entry )
