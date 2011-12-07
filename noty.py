@@ -88,16 +88,6 @@ class Tree:
 
         self.entry = TextInput( "", pos )
 
-    def reposition( self, y = 50 ):
-        # Assumes self is correctly placed. 
-        # But its children may be overlapping.
-        self.entry.pos = 50 + Tree.TAB*self.indent, y
-        for c in self.children:
-            y += Tree.SPACING
-            y = c.reposition( y )
-
-        return y
-
     def dimensions( self ):
         return self.entry.obj.get_bounding_rect()
 
