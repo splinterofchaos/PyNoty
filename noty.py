@@ -104,14 +104,14 @@ class Tree:
         return rect
 
     def paint_onto( self, window ):
-        rect = self.dimensions().inflate( 20, 20 )
+        rect = self.dimensions().inflate( 20, 20 ).move( self.entry.pos )
 
         # Move the rect's center over.
         rect.centerx += 10
         rect.centery += 10
 
         surf = pygame.Surface( [rect.width, rect.height] )
-        pygame.draw.ellipse( surf, [10,50,100], rect )
+        pygame.draw.ellipse( window.screen, [10,50,100], rect )
 
         # The position of the ellipse must be up and right of the entry to be
         # centered.
