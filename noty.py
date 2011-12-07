@@ -108,7 +108,7 @@ class Tree:
 
     def paint_onto( self, window ):
         # Draw an oval before the text.
-        rect = self.dimensions().inflate( 20, 20 ).move( self.entry.pos )
+        rect = self.bounds().inflate( 20, 20 )
         pygame.draw.ellipse( window.screen, [10,50,100], rect )
 
         # Draw the text over that oval.
