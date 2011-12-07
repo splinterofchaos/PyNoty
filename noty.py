@@ -104,18 +104,11 @@ class Tree:
         return rect
 
     def paint_onto( self, window ):
+        # Draw an oval before the text.
         rect = self.dimensions().inflate( 20, 20 ).move( self.entry.pos )
-
-        # Move the rect's center over.
-        rect.centerx += 10
-        rect.centery += 10
-
         pygame.draw.ellipse( window.screen, [10,50,100], rect )
 
-        # The position of the ellipse must be up and right of the entry to be
-        # centered.
-        pos = Vector(self.entry.pos) - [ 12, 10 ]
-
+        # Draw the text over that oval.
         window.paint( self.entry )
 
         for c in self.children:
