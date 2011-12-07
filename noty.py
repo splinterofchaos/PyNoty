@@ -99,9 +99,7 @@ class Tree:
         return self.entry.obj.get_bounding_rect()
 
     def bounds( self ):
-        rect = self.dimensions()
-        rect.move_ip( self.entry.pos )
-        return rect
+        return self.dimensions().move( self.entry.pos )
 
     def center( self ):
         return self.bounds().center
