@@ -158,12 +158,19 @@ if __name__ == '__main__':
     while not window.close:
         for e in pygame.event.get():
             window.process_events( e )
-            curNode.entry.capture_input( e )
+
+            if curNode:
+                curNode.entry.capture_input( e )
 
             if e.type == pygame.MOUSEBUTTONDOWN and e.button == 1:
                 # mp = Mouse Position
                 mp = Vector( pygame.mouse.get_pos() )
                 stuckNode = root.find_node_from_point( mp )
+
+                if not curNode:
+                    stuckNode.children.append( Tree(stuckNode) )
+                    curNode = stuckNode.children[ -1 ]
+                    curNode.selected = True
 
                 if stuckNode:
                     # sp = Stuck Position
@@ -181,17 +188,11 @@ if __name__ == '__main__':
 
             stuckNode.entry.pos = [ mp[0] + so[0], mp[1] + so[1] ]
 
-        if curNode.entry.flush:
+        if curNode and curNode.entry.flush:
             curNode.entry.flush = False
             curNode.selected    = False
 
-            if curNode.parent:
-                curNode = curNode.parent
-
-            curNode.children.append( Tree(curNode) )
-            curNode = curNode.children[ -1 ]
-
-            curNode.selected = True
+            curNode = None
                 
         root.paint_onto( window )
 
