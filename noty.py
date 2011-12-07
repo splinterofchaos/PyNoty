@@ -31,6 +31,11 @@ class Renderable:
     BLACK = 0, 0, 0
     WHITE = 255, 255, 255
 
+    DARK_BLUE   = [  25,  25, 100 ]
+    DARK_PURPLE = [ 100,  25, 100 ]
+    DARK_RED    = [ 100,  25,  25 ]
+
+
     font = pygame.font.Font( None, 20 )
 
     def __init__( self, obj, pos, color=WHITE ):
@@ -71,9 +76,9 @@ class Tree:
     SPACING = 20
     TAB     = 10
 
-    COLOR          = [  10, 50, 100 ]
-    SELECTED_COLOR = [ 100, 50, 100 ]
-    ROOT_COLOR     = [ 150, 50,  50 ]
+    COLOR          = Renderable.DARK_BLUE
+    SELECTED_COLOR = Renderable.DARK_PURPLE
+    ROOT_COLOR     = Renderable.DARK_RED
 
     def __init__( self, parent=None ):
         self.parent   = parent
