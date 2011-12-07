@@ -99,7 +99,7 @@ class Tree:
         return self.entry.obj.get_bounding_rect()
 
     def bounds( self ):
-        return self.dimensions().move( self.entry.pos )
+        return self.dimensions().move( self.entry.pos ).inflate( 20, 20 )
 
     def center( self ):
         return self.bounds().center
@@ -111,7 +111,7 @@ class Tree:
                               self.center(), c.center() )
 
         # Draw an oval before the text.
-        rect = self.bounds().inflate( 20, 20 )
+        rect = self.bounds()
         pygame.draw.ellipse( window.screen, [10,50,100], rect )
 
         # Draw the text over that oval.
