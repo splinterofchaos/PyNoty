@@ -103,6 +103,9 @@ class Tree:
         rect.move_ip( self.entry.pos )
         return rect
 
+    def center( self ):
+        return self.bounds().center
+
     def paint_onto( self, window ):
         # Draw an oval before the text.
         rect = self.dimensions().inflate( 20, 20 ).move( self.entry.pos )
@@ -112,6 +115,9 @@ class Tree:
         window.paint( self.entry )
 
         for c in self.children:
+            pygame.draw.line( window.screen, Renderable.WHITE, 
+                              self.center(), c.center() )
+
             c.paint_onto( window )
 
     def find_node_from_point( self, point ):
