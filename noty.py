@@ -107,6 +107,11 @@ class Tree:
         return self.bounds().center
 
     def paint_onto( self, window ):
+        # The connections must be drawn before the entry.
+        for c in self.children:
+            pygame.draw.line( window.screen, Renderable.WHITE, 
+                              self.center(), c.center() )
+
         # Draw an oval before the text.
         rect = self.bounds().inflate( 20, 20 )
         pygame.draw.ellipse( window.screen, [10,50,100], rect )
@@ -115,9 +120,6 @@ class Tree:
         window.paint( self.entry )
 
         for c in self.children:
-            pygame.draw.line( window.screen, Renderable.WHITE, 
-                              self.center(), c.center() )
-
             c.paint_onto( window )
 
     def find_node_from_point( self, point ):
