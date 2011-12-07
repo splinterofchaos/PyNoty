@@ -73,11 +73,13 @@ class Tree:
 
     COLOR          = [  10, 50, 100 ]
     SELECTED_COLOR = [ 100, 50, 100 ]
+    ROOT_COLOR     = [ 150, 50,  50 ]
 
     def __init__( self, parent=None ):
         self.parent   = parent
         self.children = []
         self.selected = False
+        self.root     = False
 
         pos = 50, 50
         if parent:
@@ -116,6 +118,8 @@ class Tree:
         
         if self.selected:
             col = Tree.SELECTED_COLOR
+        elif self.root:
+            col = Tree.ROOT_COLOR
         else:
             col = Tree.COLOR
 
@@ -146,6 +150,7 @@ if __name__ == '__main__':
 
     root = curNode = Tree()
 
+    root.root = True
     curNode.selected = True
 
     # When the mouse button goes down, hovering over a TextInput, that box
